@@ -14,7 +14,11 @@ export interface state {
 
     services:services;
 
-    currentService:string
+    currentService:string;
+
+    proj_pub_id:string;
+
+    proj_name:string;
 
 
 }
@@ -45,6 +49,10 @@ export const init:state = {
     token:null,
 
     apiUrl:'http://swiftbase.com/api/project',
+
+    proj_pub_id:null,
+
+    proj_name:null,
 
     services:{
 
@@ -80,7 +88,9 @@ export interface ACTIONS {
 
     SETTOKEN:string;
 
-    SET_CURRENT_SERVICE:string
+    SET_CURRENT_SERVICE:string;
+
+    SET_PROJECT_INFO:string;
 
 }
 
@@ -88,9 +98,22 @@ export const ACTIONS:ACTIONS = {
 
     SETTOKEN:'setToken',
 
-    SET_CURRENT_SERVICE:'setcurrentservice'
+    SET_CURRENT_SERVICE:'setcurrentservice',
+
+    SET_PROJECT_INFO:'SET_PROJECT_INFO'
 
 }
+
+//project interface
+
+export interface project{
+    proj_name:string;
+    description:string;
+    proj_pub_id:string;
+    owner:string;
+}
+
+export type projList = Array<project>;
 //reducer
 
 //action interface
@@ -102,9 +125,19 @@ export interface action {
     payload:any
 
 }
+
+//SET_PROJECT_INFO action type
+
+export interface SETPROJECTACTION {
+
+    type:string;
+
+    payload: project
+
+}
 //reducer function
 
-export const reducer = (state:state,action:action):state => {
+export const reducer = (state:state,action:action | SETPROJECTACTION):state => {
 
     switch(action.type){
         
@@ -126,7 +159,19 @@ export const reducer = (state:state,action:action):state => {
 
                 currentService:action.payload
             }
+        
+        case ACTIONS.SET_PROJECT_INFO:
 
+            return {
+
+                ...state,
+
+                proj_pub_id:action.payload.proj_pub_id,
+
+                proj_name:action.payload.proj_name
+
+
+            }
     }
 
 }

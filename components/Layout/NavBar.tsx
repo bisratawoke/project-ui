@@ -49,7 +49,7 @@ const NavBar = ({navItems,position}:navItemProps) => {
 
 				{navItems.map((item) => (
 						
-							<div key={item.name} className={`border-1 bg-${item.bgcolor}-100 cursor-pointer hover:bg-white flex items-center justify-center font-sans font-normal text-${item.textColor}`}>
+							<div key={item.name} className={`border-1 bg-${item.bgcolor}-100 cursor-pointer hover:text-red-500 flex items-center justify-center font-sans font-normal text-gray-400`}>
 								<Link href={`${item.path}`}>{item.name}</Link>
 							</div>
 					

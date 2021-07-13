@@ -1,10 +1,10 @@
 import Footer from '../components/Layout/Footer';
 import NavBar,{navItemType,positionType} from '../components/Layout/NavBar';
-import {FaPlus} from 'react-icons/fa';
+import {FaPlus, FaProjectDiagram} from 'react-icons/fa';
 import Link from 'next/link';
-import {useEffect,useContext} from 'react';
-import {Context} from '../components/state/StateMan';
-
+import {useEffect,useContext,useState} from 'react';
+import {Context,projList,project} from '../components/state/StateMan';
+import ProjectListItem from '../components/Layout/ProjectListItem';
 //navItems
 const NavItems:Array<navItemType> = [
 
@@ -26,8 +26,14 @@ const position:positionType = {
   colCount:3
 
 }
+//project list interface
+
+
 export default function Home() {
+
   const {state,dispatch} = useContext(Context);
+
+  const [projArray,setProjArray] = useState<projList | null>(null);
 
   useEffect(() => {
     
@@ -39,11 +45,55 @@ export default function Home() {
 
     if(token) {
 
-      console.log('setting token');
+      //making api call to get list of projects for an authorized user
+
+      const opt = {
+
+          headers:{
+
+            'authorization':`token ${token}`
+
+          },
+        
+          method: 'GET'
+
+      
+        }
+
+      fetch(`${state.apiUrl}/find`,opt)
+       
+      .then(response => {
+        
+        if(response.status === 200){
+
+          return response.json();
+
+        }
+
+        else {
+
+          return response.json();
+        }
+         
+       })
+       .then(result => {
+
+        console.log(`this is the result ${result}`);
+
+        setProjArray(result.message);
+
+       })
+       .catch(err => {
+
+        console.log(err);
+
+       })
     }
     else {
 
-      //window.location.assign('http://swiftbase.com');
+      console.log('no token');
+
+      window.location.assign('http://swiftbase.com');
 
     }
   }, [])
@@ -59,7 +109,7 @@ export default function Home() {
 
           <div className="flex-grow grid grid-cols-12">
 
-              <div className="col-start-3 col-end-11 grid grid-rows-4 grid-cols-4 auto-rows-max pt-5">
+              <div className="col-start-3 col-end-11 grid grid-rows-4 grid-cols-4 auto-rows-max pt-5 gap-x-3">
                 <Link href="/createProject">
                   <div className="border-2 border-gray-300 hover:border-blue-400  cursor-pointer flex justify-center items-center flex-col">
 
@@ -68,6 +118,27 @@ export default function Home() {
                      
                   </div>
                 </Link>
+
+                {
+
+                  projArray && projArray.map((project:project) => (
+
+                      <ProjectListItem
+                        
+                        proj_name={project.proj_name} 
+                        
+                        description={project.description} 
+                        
+                        owner={project.owner}
+
+                        proj_pub_id={project.proj_pub_id}
+
+                        key={project.proj_pub_id}
+
+                      />
+                  ))
+
+                }
 
               </div>
           </div>

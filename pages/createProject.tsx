@@ -1,7 +1,7 @@
 import React, { ReactElement,useContext,useRef,useEffect,useState } from 'react'
 import NavBar,{navItemType,positionType} from '../components/Layout/NavBar'; 
 import Footer from '../components/Layout/Footer';
-import {Context,ACTIONS} from '../components/state/StateMan';
+import {Context,ACTIONS,project,projList} from '../components/state/StateMan';
 import {useRouter} from 'next/router';
 //navItems
 const NavItems:Array<navItemType> = [
@@ -43,11 +43,19 @@ const createProject = ():ReactElement => {
     //create project handler
 
     const createProjectHandler = async(e):Promise<void> => {
+        
+        e.preventDefault();
 
         try{
 
-           
-            e.preventDefault();
+           if(!e.currentTarget.proj_name.value || !e.currentTarget.proj_name.value) {
+                
+                throw 'please fill in the form' ;
+
+                return ;
+           }
+
+            
             
             let token:string | null = window.localStorage.getItem('swiftbasetoken') || null;
 
@@ -61,6 +69,8 @@ const createProject = ():ReactElement => {
 
             }
 
+            console.log(info)
+            console.log(token)
             //request options
             //request opt interface
 
@@ -107,7 +117,7 @@ const createProject = ():ReactElement => {
 
                 setMssg('succesfully create project');
 
-                
+                router.push('/');                
 
                 return ;
             }
@@ -123,9 +133,9 @@ const createProject = ():ReactElement => {
 
             setMssg('failed to create project \n please try again');
 
-            dispatch({type:ACTIONS.SETTOKEN,payload:'new token'});
+            //dispatch({type:ACTIONS.SETTOKEN,payload:'new token'});
 
-            router.push('/projectDashboard','/james');
+            //router.push('/projectDashboard','/james');
         }
        
 
@@ -144,11 +154,11 @@ const createProject = ():ReactElement => {
 
                         <label className="font-normal font-sans text-gray-400 text-1xl pl-2">project name</label>
                         
-                        <input required type="text" name="proj_name" placeholder="please enter the name of the new project" className="p-2 border-2 rounded-lg"/>
+                        <input  required type="text" name="proj_name" placeholder="please enter the name of the new project" className="p-2 border-2 rounded-lg"/>
                         
                         <label className="font-normal font-sans text-gray-400 text-1xl pl-2">description</label>
                         
-                        <input required type="text" name="description" placeholder="write something descriptive of the project" className="p-2 border-2 rounded-lg"/>
+                        <input  required type="text" name="description" placeholder="write something descriptive of the project" className="p-2 border-2 rounded-lg"/>
 
                         {mssg && (
 
