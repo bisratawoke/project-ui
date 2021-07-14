@@ -43,11 +43,7 @@ export default function Home() {
     
     let token = null;
     
-    for(const [key,value] of params){
-    	
- 	token = value;
-    
-    }
+    params.forEach(p => token = p);
   
     if(token) {
 
@@ -102,6 +98,7 @@ export default function Home() {
       window.location.assign('http://swiftbase.com');
 
     }
+    
   }, [])
   return (
     <div className="h-screen flex flex-col">
