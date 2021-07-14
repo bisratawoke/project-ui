@@ -43,67 +43,50 @@ export default function Home() {
     
     let token = null;
     
-    params.forEach(p => {
+    params.forEach(async p => {
     	
-    	token = p;
+    	try{
     	
-    	window.localStorage.setItem('swiftbasetoken',token);
+    		token = p;
+    	
+    		window.localStorage.setItem('swiftbasetoken',token);
+    		
+    		//making api call to get list of projects for an authorized user
+
+	      const opt = {
+
+		  headers:{
+
+		    'authorization':`token ${token}`
+
+		  },
+		
+		  method: 'GET'
+
+	      
+		}
+
+	      const response = await fetch(`${state.apiUrl}/find`,opt)
+	      
+	      if(response.status === 200) {
+	      
+	      	 const result = await response.json();
+	      	 
+	      	 setProjArray(result.message);
+	      	 
+	      }
+	    	
+    	
+    	}
+    	
+    	catch(err) {
+    	
+    		console.log(err) ;
+    	}
     	
     });
   
-    if(token) {
-
-      //making api call to get list of projects for an authorized user
-
-      const opt = {
-
-          headers:{
-
-            'authorization':`token ${token}`
-
-          },
-        
-          method: 'GET'
-
-      
-        }
-
-      fetch(`${state.apiUrl}/find`,opt)
-       
-      .then(response => {
-        
-        if(response.status === 200){
-
-          return response.json();
-
-        }
-
-        else {
-
-          return response.json();
-        }
-         
-       })
-       .then(result => {
-
-        console.log(`this is the result ${result}`);
-
-        setProjArray(result.message);
-
-       })
-       .catch(err => {
-
-        console.log(err);
-
-       })
-    }
-    else {
-
-      console.log('no token');
-
-      window.location.assign('http://swiftbase.com');
-
-    }
+  
     
   }, [])
   return (
