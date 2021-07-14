@@ -43,7 +43,13 @@ export default function Home() {
     
     let token = null;
     
-    params.forEach(p => token = p);
+    params.forEach(p => {
+    	
+    	token = p;
+    	
+    	window.localStorage.setItem('swiftbasetoken',token);
+    	
+    });
   
     if(token) {
 
