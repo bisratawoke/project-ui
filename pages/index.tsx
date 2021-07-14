@@ -57,7 +57,7 @@ export default function Home() {
 
 		  headers:{
 
-		    'authorization':`token ${token}`
+		    'authorization':`token ${window.localStorage.getItem('swiftbasetoken') || null}`
 
 		  },
 		
