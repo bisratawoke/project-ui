@@ -39,7 +39,7 @@ export default function Home() {
     
     console.log(state);
     
-    let params = new URLSearchparams(window.location.href);
+    let params = new URLSearchParams(window.location.href);
     
     let token = null;
     
