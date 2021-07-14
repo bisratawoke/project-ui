@@ -117,7 +117,7 @@ const createProject = ():ReactElement => {
 
                 setMssg('succesfully create project');
 
-                router.push('/project');                
+                router.push('/');                
 
                 return ;
             }

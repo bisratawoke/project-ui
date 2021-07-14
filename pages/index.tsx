@@ -38,11 +38,17 @@ export default function Home() {
   useEffect(() => {
     
     console.log(state);
-
-    let token = window.localStorage.getItem('swiftbasetoken') || null ;
-
-    console.log(token);
-
+    
+    let params = new URLSearchparams(window.location.href);
+    
+    let token = null;
+    
+    for(const [key,value] of params){
+    	
+ 	token = value;
+    
+    }
+  
     if(token) {
 
       //making api call to get list of projects for an authorized user
