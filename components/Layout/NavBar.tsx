@@ -40,7 +40,7 @@ const NavBar = ({navItems,position}:navItemProps) => {
 				<div className="col-start-1 col-end-3 pl-5 pt-2">
 					<div className="flex gap-2 items-center">
 						<img src="/fwind.png" style={{height:'20px'}} />
-						<span className="font-serif font-normal text-lg text-gray-400">Swiftbase</span>
+						<span className="font-sans font-normal text-lg text-gray-400 transition ease-in-out duration-200 transform hover:scale-110 hover:text-red-400 cursor-pointer">SwiftBase</span>
 					</div>
 					
 				</div>

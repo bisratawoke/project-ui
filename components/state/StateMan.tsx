@@ -9,7 +9,9 @@ export const Context = createContext(null);
 export interface state {
 
     token:string | null;
-
+    
+    isAuth: boolean | null;
+    
     apiUrl:string;
 
     services:services;
@@ -38,7 +40,7 @@ export interface service {
     
     name:string;
     
-    active:boolean;
+    active:boolean | null;
     
     live:boolean;
 
@@ -47,8 +49,10 @@ export interface service {
 export const init:state = {
 
     token:null,
-
-    apiUrl:'http://swiftbase.com/api/project',
+    
+    isAuth: null,
+    
+    apiUrl:'http://swiftbase.com',
 
     proj_pub_id:null,
 
@@ -60,7 +64,7 @@ export const init:state = {
 
             name:'Frontend',
 
-            active:false,
+            active:null,
 
             live:false
 
@@ -70,7 +74,7 @@ export const init:state = {
 
             name:'Backend',
 
-            active:false,
+            active:null,
 
             live:false
         },
@@ -91,6 +95,10 @@ export interface ACTIONS {
     SET_CURRENT_SERVICE:string;
 
     SET_PROJECT_INFO:string;
+    
+    SET_IS_AUTH:string;
+    
+    UUPDATE_SERVICE_ACTIVE_STATUS:string;
 
 }
 
@@ -100,7 +108,11 @@ export const ACTIONS:ACTIONS = {
 
     SET_CURRENT_SERVICE:'setcurrentservice',
 
-    SET_PROJECT_INFO:'SET_PROJECT_INFO'
+    SET_PROJECT_INFO:'SET_PROJECT_INFO',
+    
+    SET_IS_AUTH:'SET_IS_AUTH',
+    
+    UPDATE_SERVICE_ACTIVE_STATUS:' UPDATE_SERVICE_ACTIVE_STATUS'
 
 }
 
@@ -116,13 +128,25 @@ export interface project{
 export type projList = Array<project>;
 //reducer
 
+export enum actionType {
+
+    SETTOKEN='setToken',
+
+    SET_CURRENT_SERVICE='setcurrentservice',
+
+    SET_PROJECT_INFO='SET_PROJECT_INFO',
+    
+    SET_IS_AUTH='SET_IS_AUTH'
+}
+
+
 //action interface
 
 export interface action {
 
-    type:string;
+    type:actionType;
 
-    payload:any
+    payload: project | {token:string} | string |  {isAuth: boolean,token:string | null}
 
 }
 
@@ -135,11 +159,16 @@ export interface SETPROJECTACTION {
     payload: project
 
 }
+
+//SET_IS_AUTH action type
+
 //reducer function
 
-export const reducer = (state:state,action:action | SETPROJECTACTION):state => {
+export const reducer = (state:state,action:action):state => {
 
     switch(action.type){
+        
+        //add user token to state
         
         case ACTIONS.SETTOKEN:
             
@@ -147,9 +176,11 @@ export const reducer = (state:state,action:action | SETPROJECTACTION):state => {
                 
                 ...state,
 
-                token:action.payload
+                token:action.payload.token
                 
             }
+        
+        //set the current service to be render
         
         case ACTIONS.SET_CURRENT_SERVICE:
             
@@ -159,6 +190,9 @@ export const reducer = (state:state,action:action | SETPROJECTACTION):state => {
 
                 currentService:action.payload
             }
+        
+        
+        //add project info to state
         
         case ACTIONS.SET_PROJECT_INFO:
 
@@ -172,6 +206,45 @@ export const reducer = (state:state,action:action | SETPROJECTACTION):state => {
 
 
             }
+       
+       //check to see if user is authorizied
+       
+       case ACTIONS.SET_IS_AUTH:
+          
+         return {
+         
+         	...state,
+         	
+         	isAuth: action.payload.isAuth,
+         	
+         	token: action.payload.token
+         	
+         
+         }
+         
+       
+       //update services active status
+       
+       case ACTIONS.UPDATE_SERVICE_ACTIVE_STATUS:
+       	
+         return {
+         
+         	...state,
+         	
+         	services: {
+         		
+         		...state.services,
+         		
+         		frontend:{
+         		
+         			...state.services.frontend,
+         			
+         			active:action.payload
+         		}
+         	
+         	}
+         
+         }
     }
 
 }

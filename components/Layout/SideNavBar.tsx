@@ -14,7 +14,7 @@ function SideNavBar():React.ReactElement {
                     className="flex justify-center item-center border-b-2 border-white mb-10" 
                           
                 >
-                    <span className="font-sans font-normal text-1xl text-yellow-400">project name</span>
+                    <span className="font-sans font-normal text-1xl text-yellow-400">{state.proj_name}</span>
 
                 </div>
 

@@ -143,7 +143,7 @@ const createProject = ():ReactElement => {
     return (
         <div className="h-screen flex flex-col">
             <NavBar navItems={NavItems} position={position} />
-            <div className="grid grid-cols-12 grid-rows-2 auto-rows-max flex-grow pt-20 gap-5 ">
+            <div className="grid grid-cols-12 grid-rows-30 auto-rows-max flex-grow pt-20 gap-5 ">
                 <div className="col-start-5 col-end-9  flex flex-col border-2 border-gray-400">
                     <div className="h-10 pt-5 flex justify-center items-center">
 
@@ -169,7 +169,7 @@ const createProject = ():ReactElement => {
                             </div>
 
                         )}
-                        <input type="submit" value="submit" className="p-2 bg-green-300 text-1xl text-white font-sans font-normal"/>
+                        <input type="submit" value="submit" className="p-2 bg-green-300 text-1xl text-white font-sans font-normal hover:bg-green-200 cursor-pointer"/>
 
                     </form>
 

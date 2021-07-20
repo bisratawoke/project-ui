@@ -10,7 +10,7 @@ function ProjectListItem({proj_pub_id,owner,proj_name,description}:project):Reac
     return (
        
             
-        <div className="border-2 border-gray-300 hover:border-blue-400  cursor-pointer flex justify-center items-center flex-col"
+        <div className="border-2 border-gray-300 hover:border-blue-400  transition ease-in-out transform hover:translate-y-1 hover:scale-110 cursor-pointer flex justify-center items-center flex-col"
         
             onClick={e => {
 
