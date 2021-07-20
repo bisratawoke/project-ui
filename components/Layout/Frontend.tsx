@@ -8,15 +8,7 @@ const Frontend = ():React.ReactElement => {
 	const [isActive,setIsActive] = useState<boolean | null>(null);
 	
 	useEffect(() => {
-	
-	       const action = {
-			
-			type:ACTIONS.UPDATE_SERVICE_ACTIVE_STATUS,
-				
-			payload:false
-		}
-		dispatch(action)
-		//CheckIsActive();
+		CheckIsActive();
 	} , [])
 	
 	

@@ -56,10 +56,7 @@ const createProject = ():ReactElement => {
            }
 
             
-            
-            let token:string | null = window.localStorage.getItem('swiftbasetoken') || null;
-
-            
+      
             //new projects info
             const info:{proj_name:string;description:string} = {
 
@@ -70,7 +67,7 @@ const createProject = ():ReactElement => {
             }
 
             console.log(info)
-            console.log(token)
+           
             //request options
             //request opt interface
 
@@ -90,7 +87,7 @@ const createProject = ():ReactElement => {
 
                     'Content-Type':'application/json',
 
-                    'authorization':`token ${token}`
+                    'authorization':`token ${state.token}`
 
                 },
 
@@ -103,7 +100,7 @@ const createProject = ():ReactElement => {
 
             // making api request 
 
-            const response = await fetch(`${state.apiUrl}/create`,opt);
+            const response = await fetch(`${state.apiUrl}/api/project/create`,opt);
 
             console.log(response.status);
 
@@ -117,7 +114,7 @@ const createProject = ():ReactElement => {
 
                 setMssg('succesfully create project');
 
-                router.push(`/?token=${window.localStorage.getItem('swiftbasetoken') || token || null}`);                
+                router.push(`/project_picker`);                
 
                 return ;
             }

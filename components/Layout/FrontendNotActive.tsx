@@ -4,7 +4,7 @@ import {Context,ACTIONS} from '../state/StateMan';
 const FrontendNotActive = ():ReactElement => {
 	const {state,dispatch} = useContext(Context);
 	const [showForm,setShowForm] = useState<null | boolean >(false);
-	const [mssg,setMssg] = useState<null | boolean >(null);
+	const [mssg,setMssg] = useState<null | string >(null);
 	
 		
 	return (
@@ -20,7 +20,8 @@ const FrontendNotActive = ():ReactElement => {
 									
 									className="col-start-5 col-end-9 row-start-2 row-end-5 flex bg-gray-100 border-white border-2 rounded-lg flex-col gap-5 p-5"  
 									onSubmit={async e => {
-		
+											
+											e.preventDefault();
 											try{
 											
 												const opt = {
@@ -70,7 +71,7 @@ const FrontendNotActive = ():ReactElement => {
 											}catch(err) {
 											
 												console.log(err.message)
-											
+												
 											}
 										}
 								

@@ -72,7 +72,7 @@ export default function Home() {
 	   	
 	   		const result = await response.json();
 	   		
-	   		setProjArray(projList.message);
+	   		setProjArray(result.message);
 	   	}
 	   	else if (response.status === 401) {
 	   		

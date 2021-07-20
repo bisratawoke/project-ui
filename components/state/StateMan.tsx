@@ -98,7 +98,7 @@ export interface ACTIONS {
     
     SET_IS_AUTH:string;
     
-    UUPDATE_SERVICE_ACTIVE_STATUS:string;
+    UPDATE_SERVICE_ACTIVE_STATUS:string;
 
 }
 
@@ -144,10 +144,9 @@ export enum actionType {
 
 export interface action {
 
-    type:actionType;
+    type:any;
 
-    payload: project | {token:string} | string |  {isAuth: boolean,token:string | null}
-
+    payload: any;
 }
 
 //SET_PROJECT_INFO action type
