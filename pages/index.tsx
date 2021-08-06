@@ -2,6 +2,8 @@ import React,{ReactElement,useContext,useEffect} from 'react';
 import {Context,ACTIONS} from '../components/state/StateMan';
 import {useRouter} from 'next/router';
 import Home from './project_picker';
+import Spinner from '../components/Layout/Spinner';
+
 const index = ():ReactElement => {
 	
 	const {state,dispatch} = useContext(Context);
@@ -159,7 +161,10 @@ const index = ():ReactElement => {
 	
 		return (
 		
-			<div>spinner</div>
+			<div className="h-screen w-screen flex">
+				
+				<Spinner />
+			</div>
 		)
 	}
 };
